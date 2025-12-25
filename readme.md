@@ -228,3 +228,68 @@ GROUP BY country;
 
 `GROUP BY` is essential when you need insights rather than raw row-level data.
 
+
+
+### `GROUP BY` with `HAVING` in PostgreSQL
+
+**Purpose**
+`HAVING` is used to filter grouped results after aggregation. Unlike `WHERE`, it works with aggregate functions.
+
+---
+
+### Courses with More Than 2 Students
+
+```sql
+SELECT 
+  course,
+  COUNT(*) AS total_students
+FROM students
+GROUP BY course
+HAVING COUNT(*) > 2;
+```
+
+---
+
+### Sample Output
+
+| course           | total_students |
+| ---------------- | -------------- |
+| Computer Science | 6              |
+| Mathematics      | 4              |
+
+---
+
+### Countries Where Average Student Age Is Greater Than 21
+
+```sql
+SELECT 
+  country,
+  AVG(age) AS avg_age
+FROM students
+GROUP BY country
+HAVING AVG(age) > 21;
+```
+
+---
+
+### Sample Output
+
+| country    | avg_age |
+| ---------- | ------- |
+| Bangladesh | 21.8    |
+| India      | 22.5    |
+
+---
+
+### Reason to Use `HAVING`
+
+* Filters results **after** `GROUP BY` is applied
+* Required when conditions involve aggregate functions
+* Commonly used for analytical and reporting queries
+
+**Key Difference**
+
+* `WHERE` → filters rows before grouping
+* `HAVING` → filters groups after aggregation
+
+
