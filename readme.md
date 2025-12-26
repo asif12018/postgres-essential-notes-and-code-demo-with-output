@@ -471,3 +471,63 @@ RIGHT JOIN users AS u
 > **Note:** In practice, `RIGHT JOIN` can often be rewritten as a `LEFT JOIN` by swapping table order for better readability.
 
 
+
+### Understanding `FULL JOIN` in PostgreSQL
+
+**Purpose**
+`FULL JOIN` (or `FULL OUTER JOIN`) returns **all rows from both tables**. If there is no match, the result contains `NULL` values for the missing side.
+
+---
+
+### Query Example
+
+```sql
+SELECT *
+FROM posts AS p
+FULL JOIN users AS u
+  ON p.user_id = u.id;
+```
+
+---
+
+### Example Tables
+
+**posts**
+
+| id | title       | user_id |
+| -- | ----------- | ------- |
+| 1  | SQL Basics  | 1       |
+| 2  | Joins Intro | 2       |
+| 3  | Indexing    | 5       |
+
+**users**
+
+| id | username |
+| -- | -------- |
+| 1  | asif     |
+| 2  | rahim    |
+| 3  | karim    |
+
+---
+
+### Output
+
+| post_id | title       | user_id | id (user) | username |
+| ------- | ----------- | ------- | --------- | -------- |
+| 1       | SQL Basics  | 1       | 1         | asif     |
+| 2       | Joins Intro | 2       | 2         | rahim    |
+| 3       | Indexing    | 5       | NULL      | NULL     |
+| NULL    | NULL        | NULL    | 3         | karim    |
+
+---
+
+### Reason to Use `FULL JOIN`
+
+* Retrieves complete data from both tables
+* Shows matched and unmatched records together
+* Useful for data reconciliation and comparison
+
+`FULL JOIN` is ideal when you need a comprehensive view of relationships across tables, including missing links on either side.
+
+
+
