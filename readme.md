@@ -357,3 +357,62 @@ If a post has no matching user, it will not appear in the result set.
 
 
 
+### Understanding `LEFT JOIN` in PostgreSQL
+
+**Purpose**
+`LEFT JOIN` returns **all rows from the left table** and the matching rows from the right table. If there is no match, the result contains `NULL` values for the right table columns.
+
+---
+
+### Query Example
+
+```sql
+SELECT *
+FROM posts AS p
+LEFT JOIN users AS u
+  ON p.user_id = u.id;
+```
+
+---
+
+### Example Tables
+
+**posts**
+
+| id | title       | user_id |
+| -- | ----------- | ------- |
+| 1  | SQL Basics  | 1       |
+| 2  | Joins Intro | 2       |
+| 3  | Indexing    | 5       |
+
+**users**
+
+| id | username |
+| -- | -------- |
+| 1  | asif     |
+| 2  | rahim    |
+| 3  | karim    |
+
+---
+
+### Output
+
+| post_id | title       | user_id | id (user) | username |
+| ------- | ----------- | ------- | --------- | -------- |
+| 1       | SQL Basics  | 1       | 1         | asif     |
+| 2       | Joins Intro | 2       | 2         | rahim    |
+| 3       | Indexing    | 5       | NULL      | NULL     |
+
+---
+
+### Reason to Use `LEFT JOIN`
+
+* Keeps all records from the main (left) table
+* Identifies missing relationships using `NULL` values
+* Useful for reports and audits where incomplete data must be shown
+
+Rows from `posts` are always returned, even if no matching user exists.
+
+
+
+
