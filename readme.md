@@ -291,5 +291,69 @@ HAVING AVG(age) > 21;
 
 * `WHERE` → filters rows before grouping
 * `HAVING` → filters groups after aggregation
+* 
+
+
+
+
+
+### Understanding `INNER JOIN` in PostgreSQL
+
+**Purpose**
+`INNER JOIN` returns only the rows that have matching values in both tables based on the join condition.
+
+---
+
+### Query Example
+
+```sql
+SELECT 
+  p.id AS post_id,
+  p.title,
+  u.username
+FROM posts AS p
+INNER JOIN users AS u 
+  ON p.user_id = u.id;
+```
+
+---
+
+### Example Tables
+
+**posts**
+
+| id | title       | user_id |
+| -- | ----------- | ------- |
+| 1  | SQL Basics  | 1       |
+| 2  | Joins Intro | 2       |
+| 3  | Indexing    | 5       |
+
+**users**
+
+| id | username |
+| -- | -------- |
+| 1  | asif     |
+| 2  | rahim    |
+| 3  | karim    |
+
+---
+
+### Output
+
+| post_id | title       | username |
+| ------- | ----------- | -------- |
+| 1       | SQL Basics  | asif     |
+| 2       | Joins Intro | rahim    |
+
+---
+
+### Reason to Use `INNER JOIN`
+
+* Retrieves only related data from multiple tables
+* Ensures data consistency by excluding unmatched rows
+* Commonly used when relationships must exist in both tables
+
+If a post has no matching user, it will not appear in the result set.
+
 
 
